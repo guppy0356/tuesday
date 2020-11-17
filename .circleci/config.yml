@@ -65,6 +65,6 @@ workflows:
       - job_c
       - list:
           requires:
-            - job_1
-            - job_2
-            - job_3
+            - job_a
+            - job_b
+            - job_c
