@@ -1,0 +1,70 @@
+version: 2
+jobs:
+  job_a:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run:
+          name: touch a
+          command: |
+            mkdir -p workspace/a
+            touch workspace/a/100
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - a
+
+  job_b:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run:
+          name: touch b
+          command: |
+            mkdir -p workspace/b
+            touch workspace/b/200
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - b
+
+  job_c:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run:
+          name: touch c
+          command: |
+            mkdir -p workspace/c
+            touch workspace/c/300
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - c
+  list:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - attach_workspace:
+          at: workspace
+      - run:
+          name: list dirs
+          command: |
+            ls -R workspace
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - job_1
+      - job_2
+      - job_3
+      - list:
+          requires:
+            - job_1
+            - job_2
+            - job_3
