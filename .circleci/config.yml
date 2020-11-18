@@ -10,6 +10,11 @@ jobs:
           command: |
             mkdir -p workspace/a
             touch workspace/a/100
+            echo "export A=100" >> $BASH_ENV
+      - run:
+          name: echo
+          command: |
+            echo $A
       - persist_to_workspace:
           root: workspace
           paths:
@@ -51,6 +56,10 @@ jobs:
       - checkout
       - attach_workspace:
           at: workspace
+      - run:
+          name: echo
+          command: |
+            echo $A
       - run:
           name: list dirs
           command: |
