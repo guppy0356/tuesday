@@ -69,6 +69,18 @@ jobs:
           paths:
             - workspace
 
+  job_e:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - attach_workspace:
+          at: workspace
+      - run:
+          name: list dir contains
+          command: |
+            ls -R
+
   list:
     docker:
       - image: circleci/node:8
@@ -93,6 +105,9 @@ workflows:
       - job_b
       - job_c
       - job_d
+      - job_e:
+          requires:
+            - job_a
       - list:
           requires:
             - job_a
