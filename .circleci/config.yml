@@ -92,6 +92,7 @@ workflows:
       - job_a
       - job_b
       - job_c
+      - job_d
       - list:
           requires:
             - job_a
