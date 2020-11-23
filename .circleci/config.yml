@@ -49,6 +49,26 @@ jobs:
           root: workspace
           paths:
             - c
+
+  job_d:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-{{ arch }}
+      - run:
+          name: touch d
+          command: |
+            ls -R
+            mkdir -p workspace/d
+            touch workspace/d/400
+      - save_cache:
+          key: v1-{{ arch }}
+          paths:
+            - workspace
+
   list:
     docker:
       - image: circleci/node:8
