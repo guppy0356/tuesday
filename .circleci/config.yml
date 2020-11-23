@@ -81,6 +81,19 @@ jobs:
           command: |
             ls -R
 
+  job_f:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-{{ arch }}
+      - run:
+          name: restore and list contains
+          command: |
+            ls -R
+
   list:
     docker:
       - image: circleci/node:8
