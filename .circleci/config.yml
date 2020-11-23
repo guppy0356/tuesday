@@ -121,6 +121,7 @@ workflows:
       - job_e:
           requires:
             - job_a
+      - job_f
       - list:
           requires:
             - job_a
